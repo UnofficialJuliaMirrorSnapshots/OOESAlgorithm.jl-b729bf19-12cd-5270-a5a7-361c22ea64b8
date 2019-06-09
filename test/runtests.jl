@@ -29,25 +29,99 @@ model = Model()
 using OOESAlgorithm, Distributed
 if length(procs())-1 == 0
   try
+    println("")
+    println("******************************************************************")
+    println("*****          Running OOESAlgorithm from JuMP Model         *****")
+    println("******************************************************************")
+    println("")
     Solution1 = OOES(model)
+    println("")
+    println("******************************************************************")
+    println("*****           Running OOESAlgorithm from LP File           *****")
+    println("******************************************************************")
+    println("")
     Solution2 = OOES("c20instance.lp")
+    println("")
+    println("******************************************************************")
+    println("*****           Running OOESAlgorithm from MPS File          *****")
+    println("******************************************************************")
+    println("")
     Solution3 = OOES("c20instance.mps")
+    println("")
+    println("***************************************************************************")
+    println("***** The optimal value of the obj functions for the tests should be: *****")
+    println("*****   Z1(x) = -276.667   -   z2(x) = -257.333   -   f(x) = -443.0   *****")
+    println("***************************************************************************")
+    println("")
     println("Solution test 1: ", Solution1.obj_vals)
+    if abs((-276.667-Solution1.obj_vals[1])/Solution1.obj_vals[1]) < 0.05
+      println("Test 1 successful")
+    else
+      println("Test 1 not successful")
+    end
+    println("")
     println("Solution test 2: ", Solution2.obj_vals)
+    if abs((-276.667-Solution2.obj_vals[1])/Solution2.obj_vals[1]) < 0.05
+      println("Test 2 successful")
+    else
+      println("Test 2 not successful")
+    end
+    println("")
     println("Solution test 3: ", Solution3.obj_vals)
-    println("Test successful")
+    if abs((-276.667-Solution3.obj_vals[1])/Solution3.obj_vals[1]) < 0.05
+      println("Test 3 successful")
+    else
+      println("Test 3 not successful")
+    end
   catch
     println("Installation error")
   end
 else
   try
+    println("")
+    println("******************************************************************")
+    println("*****          Running OOESAlgorithm from JuMP Model         *****")
+    println("******************************************************************")
+    println("")
     Solution1 = OOES(model, threads=length(procs())-1)
+    println("")
+    println("******************************************************************")
+    println("*****           Running OOESAlgorithm from LP File           *****")
+    println("******************************************************************")
+    println("")
     Solution2 = OOES("c20instance.lp", threads=length(procs())-1)
+    println("")
+    println("******************************************************************")
+    println("*****           Running OOESAlgorithm from MPS File          *****")
+    println("******************************************************************")
+    println("")
     Solution3 = OOES("c20instance.mps", threads=length(procs())-1)
+    println("")
+    println("***************************************************************************")
+    println("***** The optimal value of the obj functions for the tests should be: *****")
+    println("*****   Z1(x) = -276.667   -   z2(x) = -257.333   -   f(x) = -443.0   *****")
+    println("***************************************************************************")
+    println("")
     println("Solution test 1: ", Solution1.obj_vals)
+    if abs((-276.667-Solution1.obj_vals[1])/Solution1.obj_vals[1]) < 0.05
+      println("Test 1 successful")
+    else
+      println("Test 1 not successful")
+    end
+    println("")
     println("Solution test 2: ", Solution2.obj_vals)
+    if abs((-276.667-Solution2.obj_vals[1])/Solution2.obj_vals[1]) < 0.05
+      println("Test 2 successful")
+    else
+      println("Test 2 not successful")
+    end
+    println("")
     println("Solution test 3: ", Solution3.obj_vals)
-    println("Test successful")
+    if abs((-276.667-Solution3.obj_vals[1])/Solution3.obj_vals[1]) < 0.05
+      println("Test 3 successful")
+    else
+      println("Test 3 not successful")
+    end
   catch
     println("Installation error")
   end
